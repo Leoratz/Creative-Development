@@ -3,13 +3,11 @@ const albumCtx = albumCanvas.getContext('2d');
 const cdCanvas = document.getElementById('cdCanvas');
 const cdCtx = cdCanvas.getContext('2d');
 
-// Images
-const albumImg = new Image();
-const cdImg = new Image();
-const nameImg = new Image();
-albumImg.src = 'images/fond_photo.png';
-cdImg.src = 'images/taylorCD.png';
-nameImg.src = 'images/taylor_name.png';
+//images
+const albumImg = document.getElementById('albumImg');
+const cdImg = document.getElementById('cdImg');
+const nameImg = document.getElementById('nameImg');
+const logoImg = document.getElementById('logoImg');
 
 let angle = 0;
 function animateCD() {
@@ -31,6 +29,7 @@ function animateName() {
     albumCtx.clearRect(0, 0, albumCanvas.width, albumCanvas.height);
     albumCtx.drawImage(albumImg, 0, 0, albumCanvas.width, albumCanvas.height);
 
+    // Draw the animated name
     const nameWidth = nameImg.width * (albumCanvas.width / albumImg.width);
     const nameHeight = nameImg.height * (albumCanvas.height / albumImg.height);
     const revealWidth = nameWidth * nameReveal;
@@ -48,6 +47,14 @@ function animateName() {
     );
     albumCtx.restore();
 
+    if (logoImg.complete && logoImg.naturalWidth > 0) {
+        const logoWidth = albumCanvas.width * 0.3;
+        const logoHeight = logoImg.height * (logoWidth / logoImg.width);
+        const logoX = (albumCanvas.width - logoWidth) / 2;
+        const logoY = albumCanvas.height - logoHeight;
+        albumCtx.drawImage(logoImg, logoX, logoY, logoWidth, logoHeight);
+    }
+
     if (nameReveal < 1) {
         nameReveal += 0.01; // speed
         requestAnimationFrame(animateName);
@@ -64,6 +71,16 @@ nameImg.onload = () => {
     setInterval(startNameAnimation, 5000);
 };
 
+if (logoImg.complete) {
+    const logoWidth = albumCanvas.width * 0.4; // 40% of album width, adjust as needed
+    const logoHeight = logoImg.height * (logoWidth / logoImg.width);
+    const logoX = (albumCanvas.width - logoWidth) / 2;
+    const logoY = albumCanvas.height - logoHeight - 24; // 24px from bottom, adjust as needed
+    albumCtx.drawImage(logoImg, logoX, logoY, logoWidth, logoHeight);
+}
+
+logoImg.onload = animateName;
+
 const starCanvas = document.createElement('canvas');
 starCanvas.width = albumCanvas.width;
 starCanvas.height = albumCanvas.height;
@@ -78,22 +95,21 @@ starCanvas.style.zIndex = 3;
 const stars = [];
 const STAR_COUNT = 200;
 
-// Enhanced star generation with more variety
 for (let i = 0; i < STAR_COUNT; i++) {
     stars.push({
         x: Math.random() * starCanvas.width,
         y: Math.random() * starCanvas.height,
-        r: Math.random() * 1.5 + 0.3, // Smaller base radius
+        r: Math.random() * 1.5 + 0.3,
         opacity: Math.random() * 0.6 + 0.4,
         twinkleSpeed: Math.random() * 0.008 + 0.002,
         twinklePhase: Math.random() * Math.PI * 2,
         color: [
-            Math.floor(Math.random() * 80 + 180), // More color variety (180-260)
-            Math.floor(Math.random() * 40 + 60),  // Saturation (60-100)
-            Math.floor(Math.random() * 30 + 70)   // Lightness (70-100)
+            Math.floor(Math.random() * 80 + 180),
+            Math.floor(Math.random() * 40 + 60),
+            Math.floor(Math.random() * 30 + 70)
         ],
-        size: Math.random() * 0.8 + 0.2, // Size multiplier for variety
-        sparkleType: Math.random() < 0.3 ? 'cross' : 'circle' // Some stars have cross sparkles
+        size: Math.random() * 0.8 + 0.2,
+        sparkleType: Math.random() < 0.3 ? 'cross' : 'circle'
     });
 }
 
@@ -153,12 +169,10 @@ function drawStar(star) {
 function animateStars() {
     starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
     
-    // Anti-aliasing for smoother rendering
     starCtx.imageSmoothingEnabled = true;
     starCtx.imageSmoothingQuality = 'high';
     
     for (const star of stars) {
-        // Subtle drifting with bounds checking
         star.x += Math.sin(Date.now() * 0.0001 + star.twinklePhase) * 0.015;
         star.y += Math.cos(Date.now() * 0.0001 + star.twinklePhase) * 0.015;
         
@@ -175,11 +189,10 @@ function animateStars() {
 }
 animateStars();
 
-// Only declare coverContainer once at the top of your script
 const coverContainer = document.querySelector('.cover-container');
 let mouseX = 0;
 let currentCDPosition = 0;
-const maxCDMovement = 332; // 664 / 2, adjust if needed
+const maxCDMovement = 332;
 
 coverContainer.addEventListener('mousemove', (e) => {
     const rect = coverContainer.getBoundingClientRect();
