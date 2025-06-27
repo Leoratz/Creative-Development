@@ -53,9 +53,9 @@ const fallingGems = [];
 const settledGems = [];
 
 const taylorCenterX = albumCanvas.width / 2;
-const taylorCenterY = albumCanvas.height * 0.9;
+const taylorCenterY = albumCanvas.height * 0.90; // Adjusted to 90% of height for better positioning
 const arcRadius = 210; 
-const totalArcGems = 40;
+const totalArcGems = 50;
 let arcGemCount = 0;
 
 class Gem {
