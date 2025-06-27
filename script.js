@@ -8,6 +8,7 @@ const cdCtx = cdCanvas.getContext('2d');
 const albumImg = document.getElementById('albumImg');
 const cdImg = document.getElementById('cdImg');
 const nameImg = document.getElementById('nameImg');
+const nameWhiteImg = document.getElementById('nameWhiteImg');
 const logoImg = document.getElementById('logoImg');
 const star1Img = document.getElementById('star1Img');
 const star2Img = document.getElementById('star2Img');
@@ -130,11 +131,12 @@ function animateGems() {
     albumCtx.drawImage(albumImg, 0, 0, albumCanvas.width, albumCanvas.height);
 
     // Draw animated name
-    const nameWidth = nameImg.width * (albumCanvas.width / albumImg.width);
-    const nameHeight = nameImg.height * (albumCanvas.height / albumImg.height);
+    const nameWidth = nameImg.width * (albumCanvas.width / albumImg.width) / 1.5;
+    const nameHeight = nameImg.height * (albumCanvas.height / albumImg.height) / 1.5;
     const revealWidth = nameWidth * (nameReveal < 1 ? nameReveal : 1);
     const nameX = (albumCanvas.width - nameWidth) / 2;
-    const nameY = 8;
+    const nameY = 2;
+    
 
     albumCtx.save();
     albumCtx.beginPath();
