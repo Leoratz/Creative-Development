@@ -7,7 +7,7 @@
 ## 🚀 Instructions pour lancer le projet
 1. Cloner ou télécharger le dépôt.
 2. Ouvrir le dossier dans [Visual Studio Code](https://code.visualstudio.com/).
-3. Ouvrir le fichier `index.html` dans votre navigateur (clic droit > "Ouvrir avec Live Server" si l'extension est installée).
+3. Ouvrir le fichier `index.html` dans votre navigateur
 
 > ⚠️ Aucun build ou dépendance : le projet utilise uniquement **HTML, CSS, JS**.
 
@@ -35,7 +35,7 @@ C’est donc une proposition créative et personnelle, comme si l’album *Midni
 
 ## 🌐 Projet en ligne
 
-🔗 [Voir la version en ligne](https://votre-lien.vercel.app) *(ou GitHub Pages, Netlify, etc.)*
+🔗 [Voir la version en ligne](https://votre-lien.vercel.app)
 
 ---
 
