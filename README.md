@@ -1,7 +1,7 @@
 # 🎵 Taylor Swift - Midnights (Exclusive Album Cover)
 
 ## 👩‍💻 Membres du binôme
-- Alyssia PRADON
+- Alyssia LORSOLD PRADON
 - Léora CHRIQUI
 
 ## 🚀 Instructions pour lancer le projet
@@ -35,7 +35,7 @@ C’est donc une proposition créative et personnelle, comme si l’album *Midni
 
 ## 🌐 Projet en ligne
 
-🔗 [Voir la version en ligne](https://votre-lien.vercel.app)
+🔗 [Voir la version en ligne](https://creative-development-orpin.vercel.app/)
 
 ---
 

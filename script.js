@@ -29,7 +29,7 @@ gemSources.forEach(src => {
     img.src = src;
     img.onload = () => {
         gemsLoaded++;
-        if (gemsLoaded === gemSources.length) startGemAnimation();
+        if (gemsLoaded === gemSources.length) animateGems();
     };
     gemImages.push(img);
 });
@@ -135,6 +135,7 @@ function animateGems() {
     const revealWidth = nameWidth * (nameReveal < 1 ? nameReveal : 1);
     const nameX = (albumCanvas.width - nameWidth) / 2;
     const nameY = 8;
+
     albumCtx.save();
     albumCtx.beginPath();
     albumCtx.rect(nameX, nameY, revealWidth, nameHeight);
@@ -168,7 +169,7 @@ function animateGems() {
     requestAnimationFrame(animateGems);
 }
 
-// Shining stars animation (top right)
+//  shining stars animation
 function drawShiningStars() {
     const now = Date.now() / 1000;
     const starImgs = [star1Img, star2Img, star3Img];
@@ -183,19 +184,18 @@ function drawShiningStars() {
             img,
             baseX + i * starSpacing,
             baseY + Math.sin(now * 0.7 + i) * 4,
-            24, 24
+            28, 28
         );
         albumCtx.restore();
     });
 }
 
 nameImg.onload = () => {
-    console.log("nameImg loaded!");
     nameReveal = 0;
     animateGems();
-};
-nameImg.onerror = () => {
-    console.error("Failed to load nameImg!");
+    setInterval(() => {
+        nameReveal = 0;
+    }, 4000);
 };
 
 // CD Animation
