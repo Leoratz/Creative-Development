@@ -351,6 +351,80 @@ function animateCD() {
 }
 cdImg.onload = animateCD;
 
+// White confetti animation (outside canvas)
+const confettiCanvas = document.createElement("canvas");
+confettiCanvas.width = window.innerWidth;
+confettiCanvas.height = window.innerHeight;
+const confettiCtx = confettiCanvas.getContext("2d");
+document.body.appendChild(confettiCanvas);
+confettiCanvas.style.position = "fixed";
+confettiCanvas.style.left = "0";
+confettiCanvas.style.top = "0";
+confettiCanvas.style.pointerEvents = "none";
+confettiCanvas.style.zIndex = "-1";
+
+const whiteConfetti = [];
+const CONFETTI_COUNT = 60;
+
+// Initialize white confetti
+for (let i = 0; i < CONFETTI_COUNT; i++) {
+  whiteConfetti.push({
+    x: Math.random() * confettiCanvas.width,
+    y: Math.random() * confettiCanvas.height,
+    width: Math.random() * 8 + 4,
+    height: Math.random() * 12 + 6,
+    velocityX: Math.random() * 3 + 1, // Horizontal movement from left to right
+    velocityY: (Math.random() - 0.5) * 1, // Slight vertical drift
+    rotation: Math.random() * Math.PI * 2,
+    rotationSpeed: (Math.random() - 0.5) * 0.1,
+    opacity: Math.random() * 0.8 + 0.4,
+    color: `hsl(${Math.random() * 60 + 200}, 20%, ${Math.random() * 30 + 85}%)`, // White to light blue
+  });
+}
+
+function drawWhiteConfetti() {
+  confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+  
+  whiteConfetti.forEach((confetti) => {
+    // Update position
+    confetti.x += confetti.velocityX;
+    confetti.y += confetti.velocityY;
+    confetti.rotation += confetti.rotationSpeed;
+    
+    // Wrap around screen edges horizontally
+    if (confetti.x > confettiCanvas.width + 20) {
+      confetti.x = -20;
+      confetti.y = Math.random() * confettiCanvas.height; // New random vertical position
+    }
+    
+    // Keep within vertical bounds
+    if (confetti.y < -20) confetti.y = confettiCanvas.height + 20;
+    if (confetti.y > confettiCanvas.height + 20) confetti.y = -20;
+    
+    // Draw confetti
+    confettiCtx.save();
+    confettiCtx.translate(confetti.x, confetti.y);
+    confettiCtx.rotate(confetti.rotation);
+    confettiCtx.globalAlpha = confetti.opacity;
+    confettiCtx.fillStyle = confetti.color;
+    confettiCtx.shadowColor = "white";
+    confettiCtx.shadowBlur = 4;
+    
+    // Draw rectangle confetti
+    confettiCtx.fillRect(-confetti.width / 2, -confetti.height / 2, confetti.width, confetti.height);
+    
+    confettiCtx.restore();
+  });
+}
+
+function animateConfetti() {
+  drawWhiteConfetti();
+  requestAnimationFrame(animateConfetti);
+}
+
+// Start confetti animation
+animateConfetti();
+
 // Starfield (background sparkles)
 const starCanvas = document.createElement("canvas");
 starCanvas.width = albumCanvas.width;
