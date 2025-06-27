@@ -233,7 +233,6 @@ function animateGems() {
   albumCtx.clearRect(0, 0, albumCanvas.width, albumCanvas.height);
   albumCtx.drawImage(albumImg, 0, 0, albumCanvas.width, albumCanvas.height);
 
-<<<<<<< HEAD
     // Draw animated name
     const nameWidth = nameImg.width * (albumCanvas.width / albumImg.width) / 1.5;
     const nameHeight = nameImg.height * (albumCanvas.height / albumImg.height) / 1.5;
@@ -241,30 +240,22 @@ function animateGems() {
     const nameX = (albumCanvas.width - nameWidth) / 2;
     const nameY = 2;
     
-=======
-  // Draw animated name
-  const nameWidth = nameImg.width * (albumCanvas.width / albumImg.width);
-  const nameHeight = nameImg.height * (albumCanvas.height / albumImg.height);
-  const revealWidth = nameWidth * (nameReveal < 1 ? nameReveal : 1);
-  const nameX = (albumCanvas.width - nameWidth) / 2;
-  const nameY = 8;
-  albumCtx.save();
-  albumCtx.beginPath();
-  albumCtx.rect(nameX, nameY, revealWidth, nameHeight);
-  albumCtx.clip();
-  albumCtx.drawImage(
-    nameImg,
-    0,
-    0,
-    nameImg.width,
-    nameImg.height,
-    nameX,
-    nameY,
-    nameWidth,
-    nameHeight
-  );
-  albumCtx.restore();
->>>>>>> 00dfb29dc2316b7d312a732168c5eda696b52a72
+    albumCtx.save();
+    albumCtx.beginPath();
+    albumCtx.rect(nameX, nameY, revealWidth, nameHeight);
+    albumCtx.clip();
+    albumCtx.drawImage(
+        nameImg,
+        0,
+        0,
+        nameImg.width,
+        nameImg.height,
+        nameX,
+        nameY,
+        nameWidth,
+        nameHeight
+    );
+    albumCtx.restore();
 
   if (nameReveal < 1) {
     nameReveal += 0.01;
