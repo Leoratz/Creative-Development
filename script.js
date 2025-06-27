@@ -310,9 +310,7 @@ function drawShiningStars() {
   });
 }
 
-// Start everything when images are loaded
 function startGemAnimation() {
-  // Start creating arc gems immediately
   for (let i = 0; i < 5; i++) {
     setTimeout(() => {
       if (arcGemCount < totalArcGems) {
@@ -323,10 +321,12 @@ function startGemAnimation() {
 }
 
 nameImg.onload = () => {
-  console.log("nameImg loaded!");
   nameReveal = 0;
-  startGemAnimation(); // Start gem animation
-  animateGems(); // Start main animation loop
+  startGemAnimation();
+  animateGems();
+  setInterval(() => {
+    nameReveal = 0;
+  }, 4000);
 };
 nameImg.onerror = () => {
   console.error("Failed to load nameImg!");
