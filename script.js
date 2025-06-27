@@ -8,6 +8,9 @@ const albumImg = document.getElementById('albumImg');
 const cdImg = document.getElementById('cdImg');
 const nameImg = document.getElementById('nameImg');
 const logoImg = document.getElementById('logoImg');
+const star1Img = document.getElementById('star1Img');
+const star2Img = document.getElementById('star2Img');
+const star3Img = document.getElementById('star3Img');
 
 let angle = 0;
 function animateCD() {
@@ -70,6 +73,8 @@ nameImg.onload = () => {
     startNameAnimation();
     setInterval(startNameAnimation, 5000);
 };
+
+
 
 if (logoImg.complete) {
     const logoWidth = albumCanvas.width * 0.4; // 40% of album width, adjust as needed
