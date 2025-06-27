@@ -132,7 +132,7 @@ function animateGems() {
     // Draw animated name
     const nameWidth = nameImg.width * (albumCanvas.width / albumImg.width);
     const nameHeight = nameImg.height * (albumCanvas.height / albumImg.height);
-    const revealWidth = nameWidth; // Always show the full name after animation
+    const revealWidth = nameWidth * (nameReveal < 1 ? nameReveal : 1);
     const nameX = (albumCanvas.width - nameWidth) / 2;
     const nameY = 8;
     albumCtx.save();
@@ -141,6 +141,11 @@ function animateGems() {
     albumCtx.clip();
     albumCtx.drawImage(nameImg, 0, 0, nameImg.width, nameImg.height, nameX, nameY, nameWidth, nameHeight);
     albumCtx.restore();
+
+    if (nameReveal < 1) {
+        nameReveal += 0.01;
+        if (nameReveal > 1) nameReveal = 1;
+    }
 
     // Draw logo at center bottom
     if (logoImg.complete && logoImg.naturalWidth > 0) {
@@ -159,12 +164,6 @@ function animateGems() {
     settledGems.forEach(gem => { gem.draw(albumCtx); });
 
     addRandomGem();
-
-    // Animate name reveal
-    if (nameReveal < 1) {
-        nameReveal += 0.01;
-        if (nameReveal > 1) nameReveal = 1;
-    }
 
     requestAnimationFrame(animateGems);
 }
@@ -190,10 +189,13 @@ function drawShiningStars() {
     });
 }
 
-// Start everything when images are loaded
 nameImg.onload = () => {
+    console.log("nameImg loaded!");
     nameReveal = 0;
     animateGems();
+};
+nameImg.onerror = () => {
+    console.error("Failed to load nameImg!");
 };
 
 // CD Animation
