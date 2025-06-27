@@ -1,3 +1,5 @@
+/* Reset */
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -44,19 +46,19 @@ table {
 
 /* Code */
 
-body {
-    min-height: 100vh;
+html, body {
+    height: 100%;
     margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #222;
+    background: #305079;
 }
 
 .cover-container {
     position: relative;
     width: 664px;
-    height: 764px; /* album height + half of CD height (664 + 150) */
+    height: 664px;
 }
 
 #albumCanvas {
@@ -64,12 +66,16 @@ body {
     left: 0;
     top: 0;
     z-index: 2;
+    border-radius: 14px;
+    box-shadow: 0 12px 32px 0 rgba(0,0,0,0.35);
+    overflow: hidden;
 }
 
 #cdCanvas {
     position: absolute;
-    left: 512px; /* 664 - (300 / 2): aligns CD so half is under the right side of the album */
-    top: 232px;  /* (664 - 300) / 2: vertically center CD with album */
+    left: 0;
+    top: 0;
     z-index: 1;
     pointer-events: none;
+    transition: left 0.1s linear;
 }
